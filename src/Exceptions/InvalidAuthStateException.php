@@ -3,7 +3,7 @@
 namespace Aiddroid\Social\Exceptions;
 
 /**
- * Class InvalidAuthStateException
+ * Class InvalidAuthStateException.
  */
 class InvalidAuthStateException extends \InvalidArgumentException
 {

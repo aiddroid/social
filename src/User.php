@@ -3,51 +3,53 @@
  * Created by PhpStorm.
  * User: allen
  * Date: 2016/12/16
- * Time: 17:14
+ * Time: 17:14.
  */
 
 namespace Aiddroid\Social;
 
-
 use Aiddroid\Social\Interfaces\UserInterface;
 
 /**
- * Class User
- * @package Aiddroid\Social
+ * Class User.
  */
 class User implements UserInterface, \ArrayAccess, \JsonSerializable
 {
-
     /**
-     * User id
+     * User id.
+     *
      * @var
      */
     protected $id;
 
     /**
-     * User nickname
+     * User nickname.
+     *
      * @var
      */
     protected $nickname;
 
     /**
-     * User avatar url
+     * User avatar url.
+     *
      * @var string
      */
     protected $avatar;
 
     /**
-     * User profile
+     * User profile.
+     *
      * @var array
      */
     protected $attributes = [];
 
     /**
      * User constructor.
+     *
      * @param $id
      * @param $nickname
      * @param string $avatar
-     * @param array $attributes
+     * @param array  $attributes
      */
     public function __construct($id, $nickname, $avatar = '', $attributes = [])
     {
@@ -58,15 +60,19 @@ class User implements UserInterface, \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Whether a offset exists
+     * Whether a offset exists.
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetexists.php
+     *
      * @param mixed $offset <p>
-     * An offset to check for.
-     * </p>
-     * @return boolean true on success or false on failure.
-     * </p>
-     * <p>
-     * The return value will be casted to boolean if non-boolean was returned.
+     *                      An offset to check for.
+     *                      </p>
+     *
+     * @return bool true on success or false on failure.
+     *              </p>
+     *              <p>
+     *              The return value will be casted to boolean if non-boolean was returned.
+     *
      * @since 5.0.0
      */
     public function offsetExists($offset)
@@ -75,12 +81,16 @@ class User implements UserInterface, \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Offset to retrieve
+     * Offset to retrieve.
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetget.php
+     *
      * @param mixed $offset <p>
-     * The offset to retrieve.
-     * </p>
+     *                      The offset to retrieve.
+     *                      </p>
+     *
      * @return mixed Can return all value types.
+     *
      * @since 5.0.0
      */
     public function offsetGet($offset)
@@ -89,15 +99,19 @@ class User implements UserInterface, \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Offset to set
+     * Offset to set.
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetset.php
+     *
      * @param mixed $offset <p>
-     * The offset to assign the value to.
-     * </p>
-     * @param mixed $value <p>
-     * The value to set.
-     * </p>
+     *                      The offset to assign the value to.
+     *                      </p>
+     * @param mixed $value  <p>
+     *                      The value to set.
+     *                      </p>
+     *
      * @return void
+     *
      * @since 5.0.0
      */
     public function offsetSet($offset, $value)
@@ -106,12 +120,16 @@ class User implements UserInterface, \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Offset to unset
+     * Offset to unset.
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetunset.php
+     *
      * @param mixed $offset <p>
-     * The offset to unset.
-     * </p>
+     *                      The offset to unset.
+     *                      </p>
+     *
      * @return void
+     *
      * @since 5.0.0
      */
     public function offsetUnset($offset)
@@ -120,7 +138,8 @@ class User implements UserInterface, \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Get user id
+     * Get user id.
+     *
      * @return mixed
      */
     public function getId()
@@ -129,7 +148,8 @@ class User implements UserInterface, \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Get nickname
+     * Get nickname.
+     *
      * @return mixed
      */
     public function getNickname()
@@ -138,7 +158,8 @@ class User implements UserInterface, \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Get avatar url
+     * Get avatar url.
+     *
      * @return string
      */
     public function getAvatar()
@@ -147,18 +168,21 @@ class User implements UserInterface, \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Specify data which should be serialized to JSON
+     * Specify data which should be serialized to JSON.
+     *
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource.
+     *
      * @since 5.4.0
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return [
-            'id' => $this->id,
-            'nickname' => $this->nickname,
-            'avatar' => $this->avatar,
+            'id'         => $this->id,
+            'nickname'   => $this->nickname,
+            'avatar'     => $this->avatar,
             'attributes' => $this->attributes,
         ];
     }
