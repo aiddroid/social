@@ -127,10 +127,10 @@ class Social implements FactoryInterface
     protected function initalDriverProviders()
     {
         $this->driverProviderMap = [
-            'weibo'  => __NAMESPACE__.'\\Providers\\WeiboProvider',
-            'wechat' => __NAMESPACE__.'\\Providers\\WechatProvider',
-            'qq'     => __NAMESPACE__.'\\Providers\\QQProvider',
-            'github' => __NAMESPACE__ . "\\Providers\\GithubProvider",
+            'weibo'    => __NAMESPACE__.'\\Providers\\WeiboProvider',
+            'wechat'   => __NAMESPACE__.'\\Providers\\WechatProvider',
+            'qq'       => __NAMESPACE__.'\\Providers\\QQProvider',
+            'github'   => __NAMESPACE__.'\\Providers\\GithubProvider',
             'facebook' => __NAMESPACE__.'\\Providers\\FacebookProvider',
             'google'   => __NAMESPACE__.'\\Providers\\GoogleProvider',
         ];
