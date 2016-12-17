@@ -3,39 +3,39 @@
  * Created by PhpStorm.
  * User: allen
  * Date: 2016/12/17
- * Time: 13:00
+ * Time: 13:00.
  */
 
 namespace Aiddroid\Social\Providers;
-
 
 use Aiddroid\Social\User;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class GithubProvider
- * @package Aiddroid\Social\Providers
+ * Class GithubProvider.
  */
 class GithubProvider extends AbstractProvider
 {
-
     /**
-     * Get auth url
+     * Get auth url.
+     *
      * @param $state
+     *
      * @return mixed
      */
     protected function getAuthUrl()
     {
         $params = $this->buildAuthParams();
-        return 'https://github.com/login/oauth/authorize' . '?' . http_build_query($params);
+
+        return 'https://github.com/login/oauth/authorize'.'?'.http_build_query($params);
     }
 
     protected function buildAuthParams()
     {
         $params = [
-            'client_id' => $this->clientId,
+            'client_id'    => $this->clientId,
             'redirect_uri' => $this->redirectUrl,
-            'scope' => $this->getScopeParams(),
+            'scope'        => $this->getScopeParams(),
         ];
 
         if (!$this->isStateless()) {
@@ -46,7 +46,8 @@ class GithubProvider extends AbstractProvider
     }
 
     /**
-     * Get access token url
+     * Get access token url.
+     *
      * @return mixed
      */
     protected function getAccessTokenUrl()
@@ -55,36 +56,42 @@ class GithubProvider extends AbstractProvider
     }
 
     /**
-     * Build get access token params
+     * Build get access token params.
+     *
      * @param $code
+     *
      * @return mixed
      */
     protected function buildGetAccessTokenParams($code)
     {
         $params = [
-            'client_id' => $this->clientId,
+            'client_id'     => $this->clientId,
             'client_secret' => $this->clientSecret,
-            'redirect_uri' => $this->redirectUrl,
-            'code' => $code,
-            'state' => $this->getState(),
+            'redirect_uri'  => $this->redirectUrl,
+            'code'          => $code,
+            'state'         => $this->getState(),
         ];
 
         return $params;
     }
 
     /**
-     * Parse access token from response
+     * Parse access token from response.
+     *
      * @param Response $response
+     *
      * @return mixed
      */
     protected function parseAccessToken(Response $response)
     {
         parse_str($response->getBody(), $result);
+
         return isset($result['access_token']) ? $result['access_token'] : null;
     }
 
     /**
-     * Get user's profile url
+     * Get user's profile url.
+     *
      * @return mixed
      */
     protected function getUserProfileUrl()
@@ -93,8 +100,10 @@ class GithubProvider extends AbstractProvider
     }
 
     /**
-     * Build get user's profile params
+     * Build get user's profile params.
+     *
      * @param $accessToken
+     *
      * @return mixed
      */
     protected function buildGetUserProfileParams($accessToken)
@@ -107,14 +116,17 @@ class GithubProvider extends AbstractProvider
     }
 
     /**
-     * Parse user's profile from response
+     * Parse user's profile from response.
+     *
      * @param Response $response
+     *
      * @return mixed
      */
     protected function parseUser(Response $response)
     {
         $userProfile = json_decode($response->getBody(), true);
         $user = new User($userProfile['id'], $userProfile['login'], $userProfile['avatar_url'], $userProfile);
+
         return $user;
     }
 }

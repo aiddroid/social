@@ -9,38 +9,41 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
- * Class Social
- * @package Aiddroid\Social
+ * Class Social.
  */
 class Social implements FactoryInterface
 {
-
     /**
-     * The provider configs
+     * The provider configs.
+     *
      * @var
      */
     protected $config;
 
     /**
-     * The HTTP request instance
+     * The HTTP request instance.
+     *
      * @var
      */
     protected $request;
 
     /**
-     * Driver provider map
+     * Driver provider map.
+     *
      * @var array
      */
     protected $driverProviderMap = [];
 
     /**
-     * The providers
+     * The providers.
+     *
      * @var
      */
     protected $providers;
 
     /**
      * Social constructor.
+     *
      * @param $config
      * @param Request|null $request
      */
@@ -54,7 +57,8 @@ class Social implements FactoryInterface
     }
 
     /**
-     * Set driver provider
+     * Set driver provider.
+     *
      * @param $driverName
      * @param $providerClassName
      */
@@ -64,8 +68,10 @@ class Social implements FactoryInterface
     }
 
     /**
-     * Create provider by name
+     * Create provider by name.
+     *
      * @param null $providerName
+     *
      * @return ProviderInterface
      */
     public function driver($providerName)
@@ -78,8 +84,10 @@ class Social implements FactoryInterface
     }
 
     /**
-     * Create provider by name
+     * Create provider by name.
+     *
      * @param $providerName
+     *
      * @return mixed
      */
     protected function createProvider($providerName)
@@ -95,15 +103,16 @@ class Social implements FactoryInterface
         }
 
         if (!isset($this->driverProviderMap[$providerName])) {
-            throw new InvalidConfigException('Invalid driver: ' . $providerName);
+            throw new InvalidConfigException('Invalid driver: '.$providerName);
         }
         $providerClass = $this->driverProviderMap[$providerName];
         $additionConfig = isset($config['addition']) ? $config['addition'] : [];
+
         return new $providerClass($this->request, $clientId, $clientSecret, $redirectUrl, $additionConfig);
     }
 
     /**
-     * Init HTTP request
+     * Init HTTP request.
      */
     protected function initalRequest()
     {
@@ -113,17 +122,17 @@ class Social implements FactoryInterface
     }
 
     /**
-     * Init driver provider map
+     * Init driver provider map.
      */
     protected function initalDriverProviders()
     {
         $this->driverProviderMap = [
-            'weibo' => __NAMESPACE__ . "\\Providers\\WeiboProvider",
-            'wechat' => __NAMESPACE__ . "\\Providers\\WechatProvider",
-            'qq' => __NAMESPACE__ . "\\Providers\\QQProvider",
+            'weibo'  => __NAMESPACE__.'\\Providers\\WeiboProvider',
+            'wechat' => __NAMESPACE__.'\\Providers\\WechatProvider',
+            'qq'     => __NAMESPACE__.'\\Providers\\QQProvider',
 //            'github' => __NAMESPACE__ . "\\Providers\\GithubProvider",
-            'facebook' => __NAMESPACE__ . "\\Providers\\FacebookProvider",
-            'google' => __NAMESPACE__ . "\\Providers\\GoogleProvider",
+            'facebook' => __NAMESPACE__.'\\Providers\\FacebookProvider',
+            'google'   => __NAMESPACE__.'\\Providers\\GoogleProvider',
         ];
     }
 }
