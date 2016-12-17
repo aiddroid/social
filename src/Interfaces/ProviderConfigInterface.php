@@ -1,25 +1,29 @@
 <?php
 
 namespace Aiddroid\Social\Interfaces;
+
 /**
- * Interface ProviderConfigInterface
+ * Interface ProviderConfigInterface.
  */
 interface ProviderConfigInterface
 {
     /**
-     * Get client id
+     * Get client id.
+     *
      * @return mixed
      */
     public function getClientId();
 
     /**
-     * Get client secret
+     * Get client secret.
+     *
      * @return mixed
      */
     public function getClientSecret();
 
     /**
-     * get redirect url
+     * get redirect url.
+     *
      * @return mixed
      */
     public function getRedirectUrl();

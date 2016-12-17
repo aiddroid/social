@@ -10,62 +10,69 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class AbstractProvider
- * @package Aiddroid\Social\Providers
+ * Class AbstractProvider.
  */
 abstract class AbstractProvider implements ProviderInterface
 {
-
     /**
-     * The HTTP request instance
+     * The HTTP request instance.
+     *
      * @var Request
      */
     protected $request;
 
     /**
-     * The configs
+     * The configs.
+     *
      * @var
      */
     protected $config;
 
     /**
-     * The clientId or AppId
+     * The clientId or AppId.
+     *
      * @var
      */
     protected $clientId;
 
     /**
-     * The clientSecret or AppSecret
+     * The clientSecret or AppSecret.
+     *
      * @var
      */
     protected $clientSecret;
 
     /**
-     * The auth scopes
+     * The auth scopes.
+     *
      * @var array
      */
     protected $scopes = [];
 
     /**
-     * The scopes seperator
+     * The scopes seperator.
+     *
      * @var string
      */
     protected $scopeSeperator = ',';
 
     /**
-     * The redirect url
+     * The redirect url.
+     *
      * @var
      */
     protected $redirectUrl;
 
     /**
-     * indicator for callback state
+     * indicator for callback state.
+     *
      * @var bool
      */
     protected $stateless = false;
 
     /**
      * AbstractProvider constructor.
+     *
      * @param Request $request
      * @param $clientId
      * @param $clientSecret
@@ -82,7 +89,8 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * Set additional params
+     * Set additional params.
+     *
      * @param $additionParams
      */
     protected function setAdditionParams($additionParams)
@@ -93,8 +101,10 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * Redirect to auth page
+     * Redirect to auth page.
+     *
      * @param string $redirectUrl
+     *
      * @return RedirectResponse
      */
     public function redirect($redirectUrl = '')
@@ -106,11 +116,13 @@ abstract class AbstractProvider implements ProviderInterface
         }
 
         $authUrl = $this->getAuthUrl();
+
         return (new RedirectResponse($authUrl))->send();
     }
 
     /**
-     * Check if the auth is stateless
+     * Check if the auth is stateless.
+     *
      * @return bool
      */
     protected function isStateless()
@@ -118,9 +130,6 @@ abstract class AbstractProvider implements ProviderInterface
         return $this->stateless;
     }
 
-    /**
-     *
-     */
     protected function setState()
     {
         $state = substr(md5(mt_rand(1, 1000000)), 0, 5);
@@ -136,15 +145,19 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * Get auth url
+     * Get auth url.
+     *
      * @param $state
+     *
      * @return mixed
      */
     abstract protected function getAuthUrl();
 
     /**
-     * Get the user's profile
+     * Get the user's profile.
+     *
      * @param null $accessToken
+     *
      * @return mixed
      */
     public function getUser($accessToken = null)
@@ -154,6 +167,7 @@ abstract class AbstractProvider implements ProviderInterface
         }
         $accessToken = $accessToken ? $accessToken : $this->getAccessToken($this->getCode());
         $user = $this->getUserByAccessToken($accessToken);
+
         return $user;
     }
 
@@ -170,21 +184,24 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * Get access token from code
+     * Get access token from code.
+     *
      * @param $code
+     *
      * @return mixed
      */
     protected function getAccessToken($code)
     {
         $response = $this->getHttpClient()->post($this->getAccessTokenUrl(), [
-            'form_params' => $this->buildGetAccessTokenParams($code)
+            'form_params' => $this->buildGetAccessTokenParams($code),
         ]);
 
         return $this->parseAccessToken($response);
     }
 
     /**
-     * get http client instance
+     * get http client instance.
+     *
      * @return Client
      */
     public function getHttpClient()
@@ -193,61 +210,74 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * Get access token url
+     * Get access token url.
+     *
      * @return mixed
      */
     abstract protected function getAccessTokenUrl();
 
     /**
-     * Build get access token params
+     * Build get access token params.
+     *
      * @param $code
+     *
      * @return mixed
      */
     abstract protected function buildGetAccessTokenParams($code);
 
     /**
-     * Parse access token from response
+     * Parse access token from response.
+     *
      * @param Response $response
+     *
      * @return mixed
      */
     abstract protected function parseAccessToken(Response $response);
 
     /**
-     * Get user's profile by access token
+     * Get user's profile by access token.
+     *
      * @param $accessToken
+     *
      * @return mixed
      */
     protected function getUserByAccessToken($accessToken)
     {
         $response = $this->getHttpClient()->get($this->getUserProfileUrl(), [
-            'query' => $this->buildGetUserProfileParams($accessToken)
+            'query' => $this->buildGetUserProfileParams($accessToken),
         ]);
 
         return $this->parseUser($response);
     }
 
     /**
-     * Get user's profile url
+     * Get user's profile url.
+     *
      * @return mixed
      */
     abstract protected function getUserProfileUrl();
 
     /**
-     * Build get user's profile params
+     * Build get user's profile params.
+     *
      * @param $accessToken
+     *
      * @return mixed
      */
     abstract protected function buildGetUserProfileParams($accessToken);
 
     /**
-     * Parse user's profile from response
+     * Parse user's profile from response.
+     *
      * @param Response $response
+     *
      * @return mixed
      */
     abstract protected function parseUser(Response $response);
 
     /**
-     * Get the auth code
+     * Get the auth code.
+     *
      * @return mixed
      */
     protected function getCode()
@@ -256,11 +286,12 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * Get Scopes string
+     * Get Scopes string.
+     *
      * @return string
      */
     protected function getScopeParams()
     {
-        return join($this->scopeSeperator, $this->scopes);
+        return implode($this->scopeSeperator, $this->scopes);
     }
 }
