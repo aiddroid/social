@@ -10,7 +10,6 @@ use GuzzleHttp\Psr7\Response;
  */
 class FacebookProvider extends AbstractProvider
 {
-
     /**
      * The profile fields.
      *
