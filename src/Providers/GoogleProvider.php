@@ -10,7 +10,6 @@ use GuzzleHttp\Psr7\Response;
  */
 class GoogleProvider extends AbstractProvider
 {
-
     /**
      * The auth scope.
      *
