@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: allen
- * Date: 2016/12/17
- * Time: 13:00.
- */
 
 namespace Aiddroid\Social\Providers;
 
@@ -16,19 +10,6 @@ use GuzzleHttp\Psr7\Response;
  */
 class GoogleProvider extends AbstractProvider
 {
-    /**
-     * The auth response type.
-     *
-     * @var string
-     */
-    protected $responseType = 'code';
-
-    /**
-     * The grant type.
-     *
-     * @var string
-     */
-    protected $grantType = 'authorization_code';
 
     /**
      * The auth scope.

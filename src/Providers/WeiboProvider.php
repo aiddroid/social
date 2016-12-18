@@ -39,13 +39,6 @@ class WeiboProvider extends AbstractProvider
     protected $language = 'zh';
 
     /**
-     * The grant type for auth.
-     *
-     * @var string
-     */
-    protected $grantType = 'authorization_code';
-
-    /**
      * User id.
      *
      * @var
