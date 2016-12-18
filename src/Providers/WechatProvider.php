@@ -10,7 +10,6 @@ use GuzzleHttp\Psr7\Response;
  */
 class WechatProvider extends AbstractProvider
 {
-
     /**
      * The auth scopes.
      *
