@@ -22,7 +22,8 @@ abstract class AbstractProvider implements ProviderInterface
     protected $request;
 
     /**
-     * The HTTP client
+     * The HTTP client.
+     *
      * @var
      */
     protected static $httpClient;
@@ -151,8 +152,7 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * Set auth state
-     *
+     * Set auth state.
      */
     protected function setState()
     {
@@ -161,7 +161,7 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * Get auth state
+     * Get auth state.
      *
      * @return mixed
      */
@@ -201,7 +201,7 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * Check if auth state is valid
+     * Check if auth state is valid.
      *
      * @return bool
      */
