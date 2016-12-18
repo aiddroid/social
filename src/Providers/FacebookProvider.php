@@ -10,12 +10,6 @@ use GuzzleHttp\Psr7\Response;
  */
 class FacebookProvider extends AbstractProvider
 {
-    /**
-     * The auth response type.
-     *
-     * @var string
-     */
-    protected $responseType = 'code';
 
     /**
      * The profile fields.

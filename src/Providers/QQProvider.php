@@ -25,20 +25,6 @@ class QQProvider extends AbstractProvider
     protected $display = 'default';
 
     /**
-     * The auth response type.
-     *
-     * @var string
-     */
-    protected $responseType = 'code';
-
-    /**
-     * The grant type for auth.
-     *
-     * @var string
-     */
-    protected $grantType = 'authorization_code';
-
-    /**
      * User open id.
      *
      * @var

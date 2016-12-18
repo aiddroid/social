@@ -22,6 +22,12 @@ abstract class AbstractProvider implements ProviderInterface
     protected $request;
 
     /**
+     * The HTTP client
+     * @var
+     */
+    protected static $httpClient;
+
+    /**
      * The configs.
      *
      * @var
@@ -62,6 +68,20 @@ abstract class AbstractProvider implements ProviderInterface
      * @var
      */
     protected $redirectUrl;
+
+    /**
+     * The grant type for auth.
+     *
+     * @var string
+     */
+    protected $grantType = 'authorization_code';
+
+    /**
+     * The auth response type.
+     *
+     * @var string
+     */
+    protected $responseType = 'code';
 
     /**
      * indicator for callback state.
@@ -130,6 +150,10 @@ abstract class AbstractProvider implements ProviderInterface
         return $this->stateless;
     }
 
+    /**
+     * Set auth state
+     *
+     */
     protected function setState()
     {
         $state = substr(md5(mt_rand(1, 1000000)), 0, 5);
@@ -137,6 +161,8 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
+     * Get auth state
+     *
      * @return mixed
      */
     protected function getState()
@@ -174,6 +200,11 @@ abstract class AbstractProvider implements ProviderInterface
         return $user;
     }
 
+    /**
+     * Check if auth state is valid
+     *
+     * @return bool
+     */
     protected function isValidState()
     {
         if ($this->isStateless()) {
@@ -209,7 +240,11 @@ abstract class AbstractProvider implements ProviderInterface
      */
     public function getHttpClient()
     {
-        return new Client();
+        if (!self::$httpClient) {
+            self::$httpClient = new Client(['http_errors' => false]);
+        }
+
+        return self::$httpClient;
     }
 
     /**

@@ -10,19 +10,6 @@ use GuzzleHttp\Psr7\Response;
  */
 class WechatProvider extends AbstractProvider
 {
-    /**
-     * The auth response type.
-     *
-     * @var string
-     */
-    protected $responseType = 'code';
-
-    /**
-     * The grant type.
-     *
-     * @var string
-     */
-    protected $grantType = 'authorization_code';
 
     /**
      * The auth scopes.
