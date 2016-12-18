@@ -166,6 +166,9 @@ abstract class AbstractProvider implements ProviderInterface
             throw new InvalidAuthStateException('Invalid auth state.');
         }
         $accessToken = $accessToken ? $accessToken : $this->getAccessToken($this->getCode());
+        if (!$accessToken) {
+            throw new EmptyAccessTokenException('Empty access token,auth failed.');
+        }
         $user = $this->getUserByAccessToken($accessToken);
 
         return $user;
@@ -282,7 +285,12 @@ abstract class AbstractProvider implements ProviderInterface
      */
     protected function getCode()
     {
-        return $this->request->get('code');
+        $code = $this->request->get('code');
+        if (!$code) {
+            throw new EmptyAuthCodeException('Empty auth code,auth failed');
+        }
+
+        return $code;
     }
 
     /**

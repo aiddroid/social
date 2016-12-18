@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: allen
- * Date: 2016/12/16
- * Time: 17:14.
- */
 
 namespace Aiddroid\Social;
 
